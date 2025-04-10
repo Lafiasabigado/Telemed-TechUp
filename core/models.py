@@ -76,6 +76,7 @@ class MedicalRecord(models.Model):
         return f"Dossier de {self.patient.username} - {self.created_at}"
 
 
+
 # Modèle : Reminder (Rappel)
 class Reminder(models.Model):
     patient = models.ForeignKey(
@@ -92,6 +93,7 @@ class Reminder(models.Model):
 
     def __str__(self):
         return f"Rappel pour {self.patient.username} le {self.date_time}"
+
 
 
 # Modèle : Feedback (avis sur les médecins)
