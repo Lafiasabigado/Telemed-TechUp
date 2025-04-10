@@ -44,14 +44,37 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'djoser',
     'core',
+    'drf_yasg',
 ]
+
+SWAGGER_SETTINGS = {
+    'TITLE': 'Telemed API',
+    'DESCRIPTION': 'API pour la gestion de téléconsultation médicale',
+    'VERSION': '1.0.0',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Telemed API',
+    'DESCRIPTION': 'API pour la gestion de téléconsultation médicale',
+    'VERSION': '1.0.0',
+}
+
+DJOSER = {
+    'LOGIN_FIELD': 'username',
+    'SERIALIZERS': {
+        'user_create': 'core.serializers.UserCreateSerializer',
+    },
+}
 
 AUTH_USER_MODEL = 'core.User'
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ),
+    ],
 }
 
 SIMPLE_JWT = {
@@ -73,7 +96,7 @@ ROOT_URLCONF = "telemed.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / 'templates'],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [

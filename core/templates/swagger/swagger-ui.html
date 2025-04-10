@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Telemed API</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist/swagger-ui.css" />
+  <style>
+    .swagger-ui .topbar { display: none !important; }
+  </style>
+</head>
+<body class="bg-white text-gray-900 font-sans">
+
+  <!-- Navbar -->
+  <nav class="flex justify-between items-center p-6 border-b shadow-sm">
+    <div class="text-2xl font-bold text-blue-600">Telemed <span class="text-blue-400">API</span></div>
+    <div class="space-x-4">
+      <button onclick="document.getElementById('jwtModal').classList.remove('hidden')"
+              class="border border-blue-600 text-blue-600 px-4 py-2 rounded hover:bg-blue-50 transition">
+        Login / Get API Key
+      </button>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <main class="text-center mt-12 px-4">
+    <h1 class="text-4xl font-bold mb-4">API pour la gestion de téléconsultation médicale</h1>
+    <p class="text-lg text-gray-600 max-w-xl mx-auto mb-10">Version 1.0.0</p>
+  </main>
+
+  <!-- Swagger UI -->
+  <div id="swagger-ui" class="mt-12 px-4"></div>
+
+  <!-- Modal -->
+  <div id="jwtModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white p-6 rounded-lg w-full max-w-md space-y-4">
+      <h2 class="text-2xl font-semibold text-center">Connexion pour récupérer le token JWT</h2>
+      <input type="text" id="email" placeholder="Email" class="w-full border px-4 py-2 rounded" />
+      <input type="password" id="password" placeholder="Mot de passe" class="w-full border px-4 py-2 rounded" />
+      <button onclick="login()" class="bg-blue-600 text-white w-full py-2 rounded hover:bg-blue-700">Obtenir le token</button>
+      <p id="result" class="text-sm text-gray-700 break-words mt-2"></p>
+      <button onclick="document.getElementById('jwtModal').classList.add('hidden')" class="text-sm text-gray-500 hover:text-gray-800">Fermer</button>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/swagger-ui-dist/swagger-ui-bundle.js"></script>
+  <script>
+    const ui = SwaggerUIBundle({
+      url: "/swagger.json",
+      dom_id: "#swagger-ui",
+    });
+
+    async function login() {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      const response = await fetch("/auth/jwt/create/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const resultElement = document.getElementById("result");
+
+      if (response.ok) {
+        const data = await response.json();
+        resultElement.innerHTML = `
+          <span class="text-green-600">Token JWT :</span><br>
+          <code class="text-xs">${data.access}</code>
+          <button onclick="navigator.clipboard.writeText('${data.access}')" class="ml-2 text-blue-500 hover:underline text-xs">Copier</button>
+        `;
+      } else {
+        const err = await response.json();
+        resultElement.innerHTML = `<span class="text-red-500">Erreur : ${JSON.stringify(err)}</span>`;
+      }
+    }
+  </script>
+
+</body>
+</html>

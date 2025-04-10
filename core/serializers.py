@@ -4,6 +4,7 @@ from .models import User, Appointment, Feedback, MedicalRecord, Reminder
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
+        ref_name = "CustomUser"
         fields = '__all__'
 
 class AppointmentSerializer(serializers.ModelSerializer):
