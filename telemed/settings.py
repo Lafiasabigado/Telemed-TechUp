@@ -60,7 +60,6 @@ SPECTACULAR_SETTINGS = {
 }
 
 DJOSER = {
-    'LOGIN_FIELD': 'username',
     'SERIALIZERS': {
         'user_create': 'core.serializers.UserCreateSerializer',
     },
