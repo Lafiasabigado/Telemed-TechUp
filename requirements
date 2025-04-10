@@ -4,3 +4,4 @@ djoser
 drf-yasg
 psycopg2-binary
 djangorestframework-simplejwt
+gunicorn==22.0.0
