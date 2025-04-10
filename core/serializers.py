@@ -23,21 +23,27 @@ class UserCreateSerializer(serializers.ModelSerializer):
         return user
 
 class AppointmentSerializer(serializers.ModelSerializer):
+    patient = serializers.CharField(source='patient.username', read_only=True)
+    doctor = serializers.CharField(source='doctor.username', read_only=True)
     class Meta:
         model = Appointment
         fields = '__all__'
 
 class FeedbackSerializer(serializers.ModelSerializer):
+    patient = serializers.CharField(source='patient.username', read_only=True)
+    doctor = serializers.CharField(source='doctor.username', read_only=True)
     class Meta:
         model = Feedback
         fields = '__all__'
 
 class MedicalRecordSerializer(serializers.ModelSerializer):
+    patient = serializers.CharField(source='patient.username', read_only=True)
     class Meta:
         model = MedicalRecord
         fields = '__all__'
 
 class ReminderSerializer(serializers.ModelSerializer):
+    patient = serializers.CharField(source='patient.username', read_only=True)
     class Meta:
         model = Reminder
         fields = '__all__'
