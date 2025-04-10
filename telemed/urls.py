@@ -13,8 +13,8 @@ from rest_framework import permissions
 schema_view = get_schema_view(
     openapi.Info(
         title="Telemed API",
-        default_version='v1',
-        description="Documentation de l'API Telemed",
+        default_version='v1.1',
+        description="",
     ),
     public=True,
     permission_classes=(permissions.AllowAny,),

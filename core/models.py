@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
-
+# Modèle principal ( Utilsateur)
 class User(AbstractUser):
     is_patient = models.BooleanField(default=False, verbose_name="Patient")
     is_doctor = models.BooleanField(default=False, verbose_name="Médecin")
@@ -14,6 +14,7 @@ class User(AbstractUser):
         return self.username
 
 
+# Modèle : Appointment (Rendez-vous)
 class Appointment(models.Model):
     patient = models.ForeignKey(
         User,
@@ -48,6 +49,8 @@ class Appointment(models.Model):
         return f"{self.patient.username} - {self.doctor.username} le {self.datetime}"
 
 
+
+# Modèle : MedicalRecord (dossier médical)
 class MedicalRecord(models.Model):
     patient = models.ForeignKey(
         User,
@@ -73,6 +76,7 @@ class MedicalRecord(models.Model):
         return f"Dossier de {self.patient.username} - {self.created_at}"
 
 
+# Modèle : Reminder (Rappel)
 class Reminder(models.Model):
     patient = models.ForeignKey(
         User,
@@ -90,6 +94,7 @@ class Reminder(models.Model):
         return f"Rappel pour {self.patient.username} le {self.date_time}"
 
 
+# Modèle : Feedback (avis sur les médecins)
 class Feedback(models.Model):
     patient = models.ForeignKey(
         User,
