@@ -14,7 +14,7 @@ schema_view = get_schema_view(
     openapi.Info(
         title="Telemed API",
         default_version='v1.1',
-        description="",
+        description="API de télémédecine permettant la consultation à distance avec des médecins.",
     ),
     public=True,
     permission_classes=(permissions.AllowAny,),
