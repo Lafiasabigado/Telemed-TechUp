@@ -146,8 +146,10 @@ AUTH_PASSWORD_VALIDATORS = [
 
 ALLOWED_HOSTS = [
     'telemed-api-p8fx.onrender.com',
+    'miabe-telemed.netlify.app',
     'localhost',
     '127.0.0.1',
+    'http://localhost:5173/'
 ]
 
 # Internationalization
