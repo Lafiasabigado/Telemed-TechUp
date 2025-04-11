@@ -53,7 +53,10 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=60),
     'UPDATE_LAST_LOGIN': True,
     'ALGORITHM': 'HS256',
+    "AUTH_HEADER_TYPES": ("Bearer",),
+    'SIGNING_KEY': SECRET_KEY
 }
+
 
 DJOSER = {
     'SERIALIZERS': {
@@ -72,9 +75,6 @@ REST_FRAMEWORK = {
     ],
 }
 
-SIMPLE_JWT = {
-    "AUTH_HEADER_TYPES": ("Bearer",),
-}
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
